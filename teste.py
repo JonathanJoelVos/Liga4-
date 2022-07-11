@@ -14,6 +14,14 @@ matriz = [
 # vão entrar de 0 a 2
 
 
+def criarTabuleiro(matriz):
+    tamanhoMatriz = len(matriz)
+    linhaAtual = 0
+    while (linhaAtual < tamanhoMatriz):
+        print(matriz[linhaAtual])
+        linhaAtual += 1
+
+
 def fazerJogada(coluna, matriz, contador):
     tamanhoMatriz = len(matriz)
     linhaAtual = tamanhoMatriz - 1
@@ -43,6 +51,9 @@ contador = 0
 cont = 0
 while (cont < 4):
     num = receberJogada()
-    print(fazerJogada(num, matriz, contador))
+    fazerJogada(num, matriz, contador)
+    criarTabuleiro(matriz)
     contador += 1
     cont += 1
+
+# verificar

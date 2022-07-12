@@ -1,9 +1,5 @@
 # matriz 3x3 cair até a ultima linha
 
-from textwrap import indent
-from xml.dom.minidom import Element
-
-
 matriz = [
     [0, 0, 0],
     [0, 0, 0],
@@ -53,34 +49,42 @@ def receberJogada():
     return jogada
 
 
-def verificarJogada(linha, coluna, matriz, contadorV):
-    condicao = linha + 2
-    inicializacao = linha - 2
+def verificarJogada(linha, coluna, matriz):
+    contadorV = 0
+    condicao = len(matriz)
+    if (coluna == 0):
+        inicializacao = 0
+    elif (coluna == (len(matriz) - 2)):
+        inicializacao = len(matriz) - 3
+    else:
+        inicializacao = len(matriz) - 3
     while(inicializacao < condicao):
-        elemento = matriz[inicializacao][coluna]
+        elemento = matriz[linha][coluna]
         tamanhoLinha = len(matriz[linha])
         colunaAtual = coluna
         while (colunaAtual < tamanhoLinha):
             elementoComparacao = matriz[linha][colunaAtual]
             if (elementoComparacao == elemento):
                 contadorV += 1
+                if (contadorV == 3):
+                    return False
+            elif (elementoComparacao == 0):
+                return "saiu"
             colunaAtual += 1
         inicializacao += 1
 
 
 contador = 0
 condicao = 1
-contadorV = 0
 
 while (condicao):
     num = receberJogada()
     linha, coluna = fazerJogada(num, matriz, contador)
     criarTabuleiro(matriz)
-    print(verificarJogada(linha, coluna, matriz, contadorV))
+    print(verificarJogada(linha, coluna, matriz))
     contador += 1
-    condicao = verificarJogada(linha, coluna, matriz, contadorV)
-    if (contadorV == 2):
-        condicao = False
+    condicao = verificarJogada(linha, coluna, matriz)
+
 
 # verificar
 # pega o indice

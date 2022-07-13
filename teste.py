@@ -26,52 +26,53 @@ def fazerJogada(coluna, matriz, contador):
     tamanhoMatriz = len(matriz)
     linhaAtual = tamanhoMatriz - 1
     condicao = contador % 2
-    while (linhaAtual >= 0):
-        elemento = matriz[linhaAtual][coluna]
-        if (elemento == 0):
-            if (condicao == 0):
-                matriz[linhaAtual][coluna] = 1
-                linha, coluna = (linhaAtual, coluna)
-                contador += 1
-                return linha, coluna
-            else:
-                matriz[linhaAtual][coluna] = 2
-                linha, coluna = (linhaAtual, coluna)
-                contador += 1
-                return linha, coluna
-        linhaAtual -= 1
-    print("Jogada invalida")
-    return False
+    if (0 <= coluna <= 2):
+        while (linhaAtual >= 0):
+            elemento = matriz[linhaAtual][coluna]
+            if (elemento == 0):
+                if (condicao == 0):
+                    matriz[linhaAtual][coluna] = 1
+                    linha, coluna = (linhaAtual, coluna)
+                    contador += 1
+                    return linha, coluna, matriz[linhaAtual][coluna]
+                else:
+                    matriz[linhaAtual][coluna] = 2
+                    linha, coluna = (linhaAtual, coluna)
+                    contador += 1
+                    return linha, coluna, matriz[linhaAtual][coluna]
+            linhaAtual -= 1
+    else:
+        print("Jogada invalida")
+        return False
 
 
 def receberJogada():
     jogada = int(input())
     return jogada
 
+# no verificador eu recebo como parametro o elemento e percorro a lista comparando com ele
 
-def verificarJogada(linha, coluna, matriz):
+
+def verificarJogada(linha, coluna, elemento, matriz):
     contadorV = 0
     condicao = len(matriz)
-    if (coluna == 0):
+    inic = 0
+    elemento = elemento
+    while (inic < condicao):
+        elementoComparacao = matriz[linha][inic]
+        if (elementoComparacao == elemento):
+            contadorV += 1
+            if (contadorV == 3):
+                return False
+        inic += 1
+    return True
+    """ if (coluna == 0):
         inicializacao = 0
-    elif (coluna == (len(matriz) - 2)):
+    elif (coluna == 1):
         inicializacao = len(matriz) - 3
     else:
         inicializacao = len(matriz) - 3
-    while(inicializacao < condicao):
-        elemento = matriz[linha][coluna]
-        tamanhoLinha = len(matriz[linha])
-        colunaAtual = coluna
-        while (colunaAtual < tamanhoLinha):
-            elementoComparacao = matriz[linha][colunaAtual]
-            if (elementoComparacao == elemento):
-                contadorV += 1
-                if (contadorV == 3):
-                    return False
-            elif (elementoComparacao == 0):
-                return "saiu"
-            colunaAtual += 1
-        inicializacao += 1
+        fazer a condição """
 
 
 contador = 0
@@ -79,12 +80,11 @@ condicao = 1
 
 while (condicao):
     num = receberJogada()
-    linha, coluna = fazerJogada(num, matriz, contador)
+    linha, coluna, elemento = fazerJogada(num, matriz, contador)
     criarTabuleiro(matriz)
-    print(verificarJogada(linha, coluna, matriz))
+    verificarJogada(linha, coluna, elemento, matriz)
     contador += 1
-    condicao = verificarJogada(linha, coluna, matriz)
-
-
+    condicao = verificarJogada(linha, coluna, elemento, matriz)
+print("Parabéns!")
 # verificar
 # pega o indice

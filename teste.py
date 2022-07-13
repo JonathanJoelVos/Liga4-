@@ -54,16 +54,30 @@ def receberJogada():
 
 
 def verificarJogada(linha, coluna, elemento, matriz):
-    contadorV = 0
+    contadorL = 0
+    contadorC = 0
+    contadorD = 0
     condicao = len(matriz)
     inic = 0
+    diagonal = len(matriz) - 1
     elemento = elemento
     while (inic < condicao):
-        elementoComparacao = matriz[linha][inic]
-        if (elementoComparacao == elemento):
-            contadorV += 1
-            if (contadorV == 3):
+        elementoComparacaoLinha = matriz[linha][inic]
+        elementoComparacaoColuna = matriz[diagonal][coluna]
+        elementoComparacaoDiagonal = matriz[inic][diagonal]
+        if (elementoComparacaoLinha == elemento):
+            contadorL += 1
+            if contadorL == 3:
                 return False
+        elif (elementoComparacaoColuna == elemento):
+            contadorC += 1
+            if contadorC == 3:
+                return False
+        elif(elementoComparacaoDiagonal == elemento):
+            contadorD += 1
+            if contadorD == 3:
+                return False
+        diagonal -= 0
         inic += 1
     return True
     """ if (coluna == 0):
@@ -72,7 +86,9 @@ def verificarJogada(linha, coluna, elemento, matriz):
         inicializacao = len(matriz) - 3
     else:
         inicializacao = len(matriz) - 3
-        fazer a condição """
+        fazer a condição 
+        
+    zerar contador quando encontrar um espaço vazio"""
 
 
 contador = 0

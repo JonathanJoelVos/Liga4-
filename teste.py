@@ -52,6 +52,10 @@ def receberJogada():
 
 # no verificador eu recebo como parametro o elemento e percorro a lista comparando com ele
 
+# tenho que criar um limite da jogada pra direita e pra esquerda (+2 -2 no caso da 3x3 e +3 -3)
+# verificar -> se o limite for maior que o tamanho da matriz, o limite recebe o limite da propria matriz (tam - 1)
+# fazer uma função que verifica a lista que foi cirada (ai conseguimos verificar a linha coluna e diagonal reaproveitando o código)
+
 
 def verificarJogada(linha, coluna, elemento, matriz):
     contadorL = 0
@@ -59,25 +63,31 @@ def verificarJogada(linha, coluna, elemento, matriz):
     contadorD = 0
     condicao = len(matriz)
     inic = 0
-    diagonal = len(matriz) - 1
     elemento = elemento
     while (inic < condicao):
         elementoComparacaoLinha = matriz[linha][inic]
-        elementoComparacaoColuna = matriz[diagonal][coluna]
-        elementoComparacaoDiagonal = matriz[inic][diagonal]
         if (elementoComparacaoLinha == elemento):
             contadorL += 1
             if contadorL == 3:
                 return False
-        elif (elementoComparacaoColuna == elemento):
+        else:
+            contadorL = 0
+
+        elementoComparacaoColuna = matriz[inic][coluna]
+        if (elementoComparacaoColuna == elemento):
             contadorC += 1
             if contadorC == 3:
                 return False
-        elif(elementoComparacaoDiagonal == elemento):
+        if (coluna < 2):
+            elementoComparacaoDiagonal = matriz[linha - 1][coluna + 1]
+        else:
+            elementoComparacaoDiagonal = matriz[linha][coluna]
+        if(elementoComparacaoDiagonal == elemento):
             contadorD += 1
             if contadorD == 3:
                 return False
-        diagonal -= 0
+        else:
+            contadorD = 0
         inic += 1
     return True
     """ if (coluna == 0):
